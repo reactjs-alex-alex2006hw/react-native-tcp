@@ -262,7 +262,7 @@ TcpSocket.prototype.write = function(buffer: any, callback: ?(err: ?Error) => vo
     // we're ok, GCDAsyncSocket handles queueing internally
   }
 
-  var cb = callback || noop;
+  callback = callback || noop;
   var str;
   if (typeof buffer === 'string') {
     self._debug('socket.WRITE(): encoding as base64');
@@ -284,10 +284,10 @@ TcpSocket.prototype.write = function(buffer: any, callback: ?(err: ?Error) => vo
     err = normalizeError(err);
     if (err) {
       self._debug('write failed', err);
-      return cb(err);
+      return callback(err);
     }
 
-    cb();
+    callback();
   });
 
   return true;
